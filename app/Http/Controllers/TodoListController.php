@@ -31,6 +31,13 @@ class TodoListController extends Controller
         return response($list, Response::HTTP_CREATED);
     }
 
+
+    public function delete(TodoList $list)
+    {
+        $list->delete();
+        return response('', Response::HTTP_NO_CONTENT);
+    }
+
     /*public function ping(CustomServiceInterface $customService)
     {
         echo $customService->getData();
