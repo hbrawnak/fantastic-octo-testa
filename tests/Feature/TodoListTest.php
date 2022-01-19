@@ -16,7 +16,7 @@ class TodoListTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->list = TodoList::factory()->create(['name' => 'todo-list']);
+        $this->list = $this->createTodoList(['name' => 'todo-list']);
     }
 
     public function test_get_todo_list()
@@ -61,7 +61,7 @@ class TodoListTest extends TestCase
 
     public function test_delete_todo_list()
     {
-        $this->deleteJson(route('todo-list.delete', $this->list->id))
+        $this->deleteJson(route('todo-list.destroy', $this->list->id))
             ->assertNoContent();
 
         $this->assertDatabaseMissing('todo_lists', ['name' => $this->list->name]);
