@@ -34,4 +34,15 @@ class TodoListTaskTest extends TestCase
 
         $this->assertDatabaseHas('tasks', ['title' => $task->title]);
     }
+
+
+    public function test_destroy_a_task()
+    {
+        $task = Task::factory()->create();
+
+        $this->deleteJson(route('task.destroy', $task->id), ['title' => $task->title])
+            ->assertNoContent();
+
+        $this->assertDatabaseMissing('tasks', ['title' => $task->title]);
+    }
 }
