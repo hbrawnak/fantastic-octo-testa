@@ -13,7 +13,7 @@ class TodoListTaskTest extends TestCase
 
     public function test_get_all_tasks_of_a_todo_list()
     {
-       $task = Task::factory()->create();
+        $task = $this->createTask();
 
        $response = $this->getJson(route('task.index'))
            ->assertOk()
@@ -38,7 +38,7 @@ class TodoListTaskTest extends TestCase
 
     public function test_destroy_a_task()
     {
-        $task = Task::factory()->create();
+        $task = $this->createTask();
 
         $this->deleteJson(route('task.destroy', $task->id), ['title' => $task->title])
             ->assertNoContent();
