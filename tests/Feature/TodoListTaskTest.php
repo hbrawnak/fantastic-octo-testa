@@ -14,7 +14,8 @@ class TodoListTaskTest extends TestCase
     public function test_get_all_tasks_of_a_todo_list()
     {
         $list = $this->createTodoList();
-        $task = $this->createTask();
+        $task = $this->createTask(['todo_list_id' => $list->id]);
+        $this->createTask(['todo_list_id' => 2]);
 
        $response = $this->getJson(route('todo-list.task.index', $list->id))
            ->assertOk()
@@ -23,6 +24,7 @@ class TodoListTaskTest extends TestCase
        $this->assertEquals(1, count($response));
 
        $this->assertEquals($task->title, $response[0]['title']);
+       $this->assertEquals($response[0]['todo_list_id'], $list->id);
     }
 
 
@@ -34,7 +36,8 @@ class TodoListTaskTest extends TestCase
         $this->postJson(route('todo-list.task.store', $list->id), ['title' => $task->title])
             ->assertCreated();
 
-        $this->assertDatabaseHas('tasks', ['title' => $task->title]);
+        $this->assertDatabaseHas('tasks', [
+            'title' => $task->title, 'todo_list_id' => $list->id]);
     }
 
 
