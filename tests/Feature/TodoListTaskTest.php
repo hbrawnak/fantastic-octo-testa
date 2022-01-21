@@ -47,4 +47,16 @@ class TodoListTaskTest extends TestCase
 
         $this->assertDatabaseMissing('tasks', ['title' => $task->title]);
     }
+
+
+
+    public function test_update_a_task()
+    {
+        $task = $this->createTask();
+
+        $this->patchJson(route('task.update', $task->id), ['title' => 'updated title'])
+            ->assertOk();
+
+        $this->assertDatabaseHas('tasks', ['title' => 'updated title']);
+    }
 }

@@ -27,4 +27,10 @@ class TaskController extends Controller
         $task->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function update(TaskRequest $request, Task $task)
+    {
+        $task->update($request->all());
+        return response($task, Response::HTTP_OK);
+    }
 }
