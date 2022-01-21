@@ -13,9 +13,10 @@ class TodoListTaskTest extends TestCase
 
     public function test_get_all_tasks_of_a_todo_list()
     {
+        $list = $this->createTodoList();
         $task = $this->createTask();
 
-       $response = $this->getJson(route('task.index'))
+       $response = $this->getJson(route('todo-list.task.index', $list->id))
            ->assertOk()
            ->json();
 
@@ -27,9 +28,10 @@ class TodoListTaskTest extends TestCase
 
     public function test_store_a_task()
     {
+        $list = $this->createTodoList();
         $task = Task::factory()->make();
 
-        $this->postJson(route('task.store'), ['title' => $task->title])
+        $this->postJson(route('todo-list.task.store', $list->id), ['title' => $task->title])
             ->assertCreated();
 
         $this->assertDatabaseHas('tasks', ['title' => $task->title]);
