@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
@@ -11,4 +12,10 @@ class Task extends Model
 
     protected $fillable = ['title', 'todo_list_id'];
     //protected $guarded = [];
+
+
+    public function todo_list(): BelongsTo
+    {
+        return $this->belongsTo(TodoList::class);
+    }
 }
