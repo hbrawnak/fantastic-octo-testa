@@ -21,7 +21,8 @@ class TaskFactory extends Factory
             'title' => $this->faker->sentence,
             'todo_list_id' => function () {
                 return TodoList::factory()->create()->id;
-            }
+            },
+            'status' => Task::NOT_STARTED
         ];
     }
 }
