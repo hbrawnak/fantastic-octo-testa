@@ -21,7 +21,6 @@ class LoginController extends Controller
 
         $token = $user->createToken('api');
 
-        print_r($token->plainTextToken);
         return response(['token' => $token->plainTextToken]);
     }
 }
